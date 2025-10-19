@@ -21,7 +21,7 @@ public class FlatFile implements IDatabase {
                 long price = AuctionHouse.getInstance().getData().getConfiguration().getLong("profiles." + s + ".items." + x + ".price");
 
                 AuctionHouse.getInstance().getAuctionItemManager().getPlayerItems().putIfAbsent(UUID.fromString(s), new ArrayList<>());
-                AuctionHouse.getInstance().getAuctionItemManager().getPlayerItems().get(UUID.fromString(s)).add(new AuctionItem(uuid, itemStack, price));
+                AuctionHouse.getInstance().getAuctionItemManager().getPlayerItems().get(UUID.fromString(s)).add(new AuctionItem(uuid, UUID.fromString(s), itemStack, price));
             }
         }
     }

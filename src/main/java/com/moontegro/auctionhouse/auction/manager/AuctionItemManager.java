@@ -32,9 +32,21 @@ public class AuctionItemManager {
             ItemStack itemStack = ItemStackSerializer.deSerialize(item.split("-")[0]);
             long price = Long.parseLong(item.split("-")[0]);
 
-            auctionItems.add(new AuctionItem(itemUUID, itemStack, price));
+            auctionItems.add(new AuctionItem(itemUUID, uuid, itemStack, price));
         }
 
         return auctionItems;
+    }
+
+    public AuctionItem getById(UUID itemId) {
+        for (UUID uuid : playerItems.keySet()) {
+            for (AuctionItem item : playerItems.get(uuid)) {
+                if (item.getUuid().equals(itemId)) {
+                    return item;
+                }
+            }
+        }
+
+        return null;
     }
 }

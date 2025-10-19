@@ -1,1 +1,4 @@
 database: "flatfile"
+
+auction-inventory:
+  title: "&aAuction House"

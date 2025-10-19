@@ -2,6 +2,9 @@ name: AuctionHouse
 version: '1.0-SNAPSHOT'
 main: com.moontegro.auctionhouse.AuctionHouse
 api-version: '1.21'
-authors: [ Kacper ]
-description: This is my first ever minecraft plugin
-website: https://udemy.com
+authors: [ Moontegro ]
+description: AuctionHouse plugin
+website: https://moontegro.com
+commands:
+  auctionhouse:
+  trade:

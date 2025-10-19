@@ -1,0 +1,6 @@
+item-null: "&cYou must hold an item in your hand."
+
+auction-item-added: "&aSuccessfully added item to an auction."
+auction-admin-remove: "&aSuccessfully removed auction house item."
+insufficient-balance: "&cInsufficient balance."
+auction-purchased: "&aSuccessfully purchased item from auction house."

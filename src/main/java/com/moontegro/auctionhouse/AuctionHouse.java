@@ -1,6 +1,8 @@
 package com.moontegro.auctionhouse;
 
 import com.moontegro.auctionhouse.auction.manager.AuctionItemManager;
+import com.moontegro.auctionhouse.command.AuctionHouseCommand;
+import com.moontegro.auctionhouse.command.TradeCommand;
 import com.moontegro.auctionhouse.database.IDatabase;
 import com.moontegro.auctionhouse.database.impl.FlatFile;
 import com.moontegro.auctionhouse.database.impl.Mongo;
@@ -10,11 +12,13 @@ import com.moontegro.auctionhouse.database.manager.MySQLManager;
 import com.moontegro.auctionhouse.utils.config.Config;
 import lombok.Getter;
 import net.milkbowl.vault.economy.Economy;
+import org.bukkit.NamespacedKey;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
+import java.util.Objects;
 
 @Getter
 public final class AuctionHouse extends JavaPlugin {
@@ -30,6 +34,9 @@ public final class AuctionHouse extends JavaPlugin {
     private AuctionItemManager auctionItemManager;
     private MongoManager mongoManager;
     private MySQLManager mySQLManager;
+
+    private final NamespacedKey price = new NamespacedKey(this, "price");
+    private final NamespacedKey uuid = new NamespacedKey(this, "uuid");
 
     private IDatabase database;
 
@@ -69,7 +76,10 @@ public final class AuctionHouse extends JavaPlugin {
         this.data.create();
     }
 
-    private void loadCommand() {}
+    private void loadCommand() {
+        Objects.requireNonNull(getCommand("trade")).setExecutor(new TradeCommand());
+        Objects.requireNonNull(getCommand("auctionhouse")).setExecutor(new AuctionHouseCommand());
+    }
 
     private void loadListener() {}
 
