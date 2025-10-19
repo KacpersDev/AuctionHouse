@@ -9,9 +9,11 @@ import com.moontegro.auctionhouse.database.impl.Mongo;
 import com.moontegro.auctionhouse.database.impl.MySQL;
 import com.moontegro.auctionhouse.database.manager.MongoManager;
 import com.moontegro.auctionhouse.database.manager.MySQLManager;
+import com.moontegro.auctionhouse.listener.AuctionHouseListener;
 import com.moontegro.auctionhouse.utils.config.Config;
 import lombok.Getter;
 import net.milkbowl.vault.economy.Economy;
+import org.bukkit.Bukkit;
 import org.bukkit.NamespacedKey;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.RegisteredServiceProvider;
@@ -81,7 +83,9 @@ public final class AuctionHouse extends JavaPlugin {
         Objects.requireNonNull(getCommand("auctionhouse")).setExecutor(new AuctionHouseCommand());
     }
 
-    private void loadListener() {}
+    private void loadListener() {
+        Bukkit.getPluginManager().registerEvents(new AuctionHouseListener(), this);
+    }
 
     private void loadDatabase() {
         String configBase = getConfiguration().getConfiguration().getString("database");
