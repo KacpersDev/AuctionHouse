@@ -4,11 +4,13 @@ import com.moontegro.auctionhouse.AuctionHouse;
 import com.moontegro.auctionhouse.auction.AuctionItem;
 import com.moontegro.auctionhouse.utils.color.Color;
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
@@ -30,7 +32,7 @@ public class TradeCommand implements CommandExecutor {
             try {
                 int number = Integer.parseInt(args[0]);
 
-                if (player.getInventory().getItemInMainHand() == null) {
+                if (player.getInventory().getItemInMainHand() == null || player.getInventory().getItemInMainHand().getType().equals(Material.AIR)) {
                     player.sendMessage(Color.translate(AuctionHouse.getInstance().getLanguage()
                             .getConfiguration().getString("item-null")));
                     return false;
@@ -38,6 +40,7 @@ public class TradeCommand implements CommandExecutor {
 
                 AuctionHouse.getInstance().getAuctionItemManager().getPlayerItems().putIfAbsent(player.getUniqueId(), new ArrayList<>());
                 AuctionHouse.getInstance().getAuctionItemManager().getPlayerItems().get(player.getUniqueId()).add(new AuctionItem(UUID.randomUUID(), player.getUniqueId(), player.getInventory().getItemInMainHand(), number));
+                player.getInventory().setItemInMainHand(new ItemStack(Material.AIR));
                 player.sendMessage(Color.translate(Objects.requireNonNull(AuctionHouse.getInstance().getLanguage().getConfiguration().getString("auction-item-added"))));
             } catch (NumberFormatException e) {
                 player.sendMessage(Color.translate("&cAmount must be a number."));

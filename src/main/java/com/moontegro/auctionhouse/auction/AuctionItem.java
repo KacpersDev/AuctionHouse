@@ -29,9 +29,9 @@ public class AuctionItem {
 
     public ItemStack getItemStack(Player viewer) {
         ItemStack item = itemStack.clone();
-        ItemMeta meta = item.getItemMeta();
+        ItemMeta meta = item.getItemMeta().clone();
         meta.getPersistentDataContainer().set(AuctionHouse.getInstance().getPrice(), PersistentDataType.LONG, price);
-        meta.getPersistentDataContainer().set(AuctionHouse.getInstance().getPrice(), PersistentDataType.STRING, uuid.toString());
+        meta.getPersistentDataContainer().set(AuctionHouse.getInstance().getUuid(), PersistentDataType.STRING, uuid.toString());
         List<Component> lore = itemStack.clone().getItemMeta().lore();
         if (lore == null) {
             lore = new ArrayList<>();
